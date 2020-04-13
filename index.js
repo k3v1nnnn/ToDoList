@@ -1,51 +1,41 @@
-class Item{
-    constructor(nTitle){
-        this.title=nTitle;
-        this.status=true;
-    }
-    setStatus(){
-        this.status=false;
-    }
-    getStatus(){
-        return this.status;
-    }
-    getTitle(){
-        return this.title;
-    }
-};
-class ItemsContainer{
-    constructor(){
-        this.cant=0;
-    }
-    addItem(item){
-        this.cant=this.cant+1;
-        const itemsContainer=document.getElementById('itemsId');
-        const element=document.createElement('div');
-        element.classList.add('card','text-center','text-white','bg-primary','mb-4');
-        element.innerHTML=`
-            <div class="card-body">
-                ${item.getTitle()}
-            </div>`;
-        element.addEventListener('click',function(){element.classList.remove('bg-primary');
-        element.classList.add('bg-success');});
-        itemsContainer.appendChild(element);
-    }
-    getCant(){
-        return this.cant;
-    }
+var amount=0; //im not sure about this, whit objects will be more easy
+function addItem(title){
+    const itemsContainer=document.getElementById('itemsId');
+    const element=document.createElement('div');
+    element.classList.add('card','text-center','text-white','bg-primary','mb-4');
+    element.innerHTML=`
+    <div class="card-body">
+        ${title}
+    </div>
+    <div class="card-footer">
+        <button  onclick="removeItem(this.id)" id="btn`+amount+`" type="button" class="btn btn-success btn-sm"  >Done</button>
+    </div>`;
+    itemsContainer.appendChild(element);
+    localStorage.setItem('btn'+amount,title);
+    amount=amount+1;
 };
 
-function submitFunction(items){
+function submitItem(){
     const title=document.getElementById('titleId').value;
     if(!title==""){
-    items.addItem(new Item(title));
-    document.getElementById('itemForm').reset();
-    document.getElementById('amount').innerHTML=items.getCant();
+        addItem(title);
+        document.getElementById('itemForm').reset();
     }
-}
-const container=new ItemsContainer();
-document.getElementById('itemForm')
-.addEventListener('submit',function(e){submitFunction(container);
-e.preventDefault();});
+};
 
-//
+function removeItem(elementId){
+    document.getElementById(elementId).parentElement.parentElement.remove();
+    localStorage.removeItem(elementId);
+};
+
+document.getElementById('itemForm')
+.addEventListener('submit',function(e){submitItem();
+e.preventDefault();});
+if(!localStorage.length==0){
+    var allItems=[];
+    for(x=0;x<=localStorage.length-1;x++){
+        allItems.push(localStorage.getItem(localStorage.key(x)));
+    };
+    localStorage.clear();
+    allItems.forEach(function(i){addItem(i)});
+};

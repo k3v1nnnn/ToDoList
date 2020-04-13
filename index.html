@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +9,7 @@
 </head>
 <body>
     <nav class="navbar navbar-light bg-light">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="/">
             <img src="check.png" class="d-inline-block align-top" width="30" height="30" alt="img not found">
             To Do List
         </a>
@@ -17,17 +17,23 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-4">
-                <form id="itemForm">
-                    <div class="form-group">
-                        <label for="titleId">Title</label>
-                        <input type="text" class="form-control" id="titleId">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h2>Add Item</h2>
                     </div>
-                    <input type="submit" class="btn btn-primary"  value="Add">
-                </form>
+                    <div class="card-body">
+                        <form id="itemForm">
+                            <div class="form-group">
+                                <label for="titleId"><h4>New Task</h4></label>
+                                <input type="text" class="form-control" id="titleId">
+                            </div>
+                            <input type="submit" class="btn btn-primary"  value="Add">
+                        </form>
+                    </div>
+                </div>
             </div>
             <div class="col-lg">
                 <div id="itemsId">
-                    <h2 id="amount" class="text-center">0</h2>
                 </div>
             </div>
 
